@@ -1,0 +1,5 @@
+server:
+  port: 8081
+api:
+  baseUrl: http://localhost:8080/
+  urlExtension: shape
