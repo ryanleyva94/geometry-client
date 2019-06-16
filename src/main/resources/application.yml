@@ -3,3 +3,6 @@ server:
 api:
   baseUrl: http://localhost:8080/
   urlExtension: shape
+security:
+  username: admin
+  password: myPassword
