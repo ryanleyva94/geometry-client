@@ -34,4 +34,15 @@ public class CalculatorClient {
         System.out.println(response.getBody());
     }
 
+    public void calculateRectangularPrism(double width, double height, double depth){
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl + urlExtension + "/rectangle")
+                .queryParam("width", width)
+                .queryParam("height", height)
+                .queryParam("depth", depth);
+
+        ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String.class);
+
+        System.out.println(response.getBody());
+    }
+
 }

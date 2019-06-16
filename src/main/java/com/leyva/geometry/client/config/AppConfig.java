@@ -12,10 +12,16 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class AppConfig {
 
+    @Value("${security.username}")
+    private String username;
+
+    @Value("${security.password}")
+    private String password;
+
     @Bean
     public RestTemplate restTemplate(){
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
-        return restTemplateBuilder.build();
+        return restTemplateBuilder.basicAuthentication(username, password).build();
     }
 
     @Bean
