@@ -1,5 +1,6 @@
 package com.leyva.geometry.client.contollers;
 
+import com.leyva.geometry.client.model.Shape;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -25,24 +26,24 @@ public class CalculatorClient {
         this.httpEntity = httpEntity;
     }
 
-    public void calculateCube(double width){
+    public Shape calculateCube(double width){
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl + urlExtension + "/cube")
                 .queryParam("width", width);
 
-        ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<Shape> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, Shape.class);
 
-        System.out.println(response.getBody());
+        return response.getBody();
     }
 
-    public void calculateRectangularPrism(double width, double height, double depth){
+    public Shape calculateRectangularPrism(double width, double height, double depth){
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl + urlExtension + "/rectangle")
                 .queryParam("width", width)
                 .queryParam("height", height)
                 .queryParam("depth", depth);
 
-        ResponseEntity<String> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, String.class);
+        ResponseEntity<Shape> response = restTemplate.exchange(builder.toUriString(), HttpMethod.GET, httpEntity, Shape.class);
 
-        System.out.println(response.getBody());
+        return response.getBody();
     }
 
 }
