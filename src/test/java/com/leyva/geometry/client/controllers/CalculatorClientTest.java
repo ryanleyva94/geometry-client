@@ -1,10 +1,11 @@
 package com.leyva.geometry.client.controllers;
 
+import static org.junit.Assert.*;
 
 import com.leyva.geometry.client.contollers.CalculatorClient;
+import com.leyva.geometry.client.model.Shape;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -42,11 +43,17 @@ public class CalculatorClientTest {
 
     @Test
     public void testCalculateCube(){
+        String returnValue = "{\"width\":10.0,\"height\":10.0,\"depth\":10.0,\"shapeName\":\"Cube\",\"volume\":1000.0,\"surfaceArea\":600.0}";
+
         mockRestServiceServer.expect(requestTo("http://localhost:8080/shape/cube?width=10.0"))
                 .andExpect(method(HttpMethod.GET))
-                .andRespond(withSuccess("resultSuccess", MediaType.APPLICATION_JSON));
+                .andRespond(withSuccess(returnValue, MediaType.APPLICATION_JSON));
 
-        calculatorClient.calculateCube(10);
+        Shape cube = calculatorClient.calculateCube(10);
+
+        assertEquals("Cube", cube.getShapeName());
+        assertEquals(1000, cube.getVolume(), 0.0);
+        assertEquals(600, cube.getSurfaceArea(), 0.0);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.leyva.geometry.client;
 
-import com.leyva.geometry.client.contollers.CalculatorClient;
+import com.leyva.geometry.client.services.CalculatorService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationStartup implements ApplicationListener<ApplicationReadyEvent> {
 
-    private final CalculatorClient calculatorClient;
+    private final CalculatorService calculatorService;
 
-    public ApplicationStartup(CalculatorClient calculatorClient) {
-        this.calculatorClient = calculatorClient;
+    public ApplicationStartup(CalculatorService calculatorService) {
+        this.calculatorService = calculatorService;
     }
 
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        calculatorClient.calculateCube(5.0);
+        calculatorService.processShape();
     }
 }
