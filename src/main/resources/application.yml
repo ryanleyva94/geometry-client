@@ -6,3 +6,13 @@ api:
 security:
   username: admin
   password: myPassword
+rabbitmq:
+  shapes:
+    virtualhost: /
+    port: 5672
+    addresses: localhost:5672
+    username: guest
+    password: guest
+  queues:
+    shapes:
+      main: shapes
