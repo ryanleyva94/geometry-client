@@ -1,0 +1,18 @@
+server:
+  port: 8081
+api:
+  baseUrl: http://localhost:8080/
+  urlExtension: shape
+security:
+  username: admin
+  password: myPassword
+rabbitmq:
+  shapes:
+    virtualhost: /
+    port: 5672
+    addresses: localhost:5672
+    username: guest
+    password: guest
+  queues:
+    shapes:
+      main: shapes
