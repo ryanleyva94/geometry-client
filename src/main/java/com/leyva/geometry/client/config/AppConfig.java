@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leyva.geometry.client.amqp.IMessageConsumer;
 import com.leyva.geometry.client.amqp.MessageConsumerImpl;
 import com.leyva.geometry.client.contollers.CalculatorClient;
+import com.leyva.geometry.client.model.Shape;
 import com.leyva.geometry.client.repositories.ShapeRepository;
 import com.leyva.geometry.client.services.CalculatorService;
 import com.leyva.geometry.client.services.ParsingService;
@@ -73,12 +74,17 @@ public class AppConfig {
 
     @Bean
     public CalculatorService calculatorService(CalculatorClient calculatorClient, ShapeRepository shapeRepository){
-        return new CalculatorService( calculatorClient, shapeRepository);
+        return new CalculatorService(calculatorClient, shapeRepository);
     }
 
     @Bean
     public CalculatorClient calculatorClient(RestTemplate restTemplate, HttpEntity<?> httpEntity){
         return new CalculatorClient(restTemplate, httpEntity);
+    }
+
+    @Bean
+    public ShapeRepository shapeRepository(ObjectMapper objectMapper){
+        return new ShapeRepository(objectMapper);
     }
 
 

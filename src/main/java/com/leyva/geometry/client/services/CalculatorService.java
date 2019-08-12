@@ -7,6 +7,8 @@ import com.leyva.geometry.client.repositories.ShapeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 public class CalculatorService {
 
     private static Logger logger = LoggerFactory.getLogger(CalculatorService.class);
@@ -19,7 +21,7 @@ public class CalculatorService {
         this.shapeRepository = shapeRepository;
     }
 
-    public void processShape(QueueShape queueShape){
+    public void processShape(QueueShape queueShape) throws IOException {
         Shape shape = determineEndpoint(queueShape);
 
         if(shape != null){
@@ -31,15 +33,17 @@ public class CalculatorService {
     Shape determineEndpoint(QueueShape queueShape){
         Shape shape = null;
 
-        switch (queueShape.getShapeType().toUpperCase()){
-            case "CUBE":
-                shape = calculatorClient.calculateCube(queueShape.getWidth());
-                break;
-            case "RECTANGULARPRISM":
-                shape = calculatorClient.calculateRectangularPrism(queueShape.getWidth(), queueShape.getHeight(), queueShape.getDepth());
-                break;
-            default:
-                logger.warn("The shape: " + queueShape.getShapeType() + " is not yet able to be processed by the server.");
+        if(queueShape.getShapeType() != null) {
+            switch (queueShape.getShapeType().toUpperCase()) {
+                case "CUBE":
+                    shape = calculatorClient.calculateCube(queueShape.getWidth());
+                    break;
+                case "RECTANGULARPRISM":
+                    shape = calculatorClient.calculateRectangularPrism(queueShape.getWidth(), queueShape.getHeight(), queueShape.getDepth());
+                    break;
+                default:
+                    logger.warn("The shape: " + queueShape.getShapeType() + " is not yet able to be processed by the server.");
+            }
         }
 
         return shape;
